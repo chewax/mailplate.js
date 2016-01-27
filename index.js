@@ -1,15 +1,21 @@
-var require = ('fs');
+var fs = require('fs');
 
-module.exports.formatTemplate = function(templatePath, data){
+module.exports.render = function(templatePath, config){
 
-    var formattedHTML = '';
-    fs.readFile(templatePath, function (err, data) {
-        if (err) throw err;
-        formattedHTML = data.toString();
-        for (key in data) {
-            formattedHTML.replace('{{' + key + '}}', data[key]);
-        }
-        return formattedHTML;
+    return new Promise( function(resolve, reject){
+        var appRoot = process.cwd();
+
+        fs.readFile(appRoot + templatePath, function (err, data) {
+            if (err) reject(err);
+
+            var formattedHTML = data.toString();
+            for (var key in config) {
+                formattedHTML = formattedHTML.replace('{{' + key + '}}', config[key]);
+            }
+
+            resolve(formattedHTML);
+        });
     });
+
 }
 

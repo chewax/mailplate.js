@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/chewax/mailplate.js/issues"
   },
-  "homepage": "https://github.com/chewax/mailplate.js"
+  "homepage": "https://github.com/chewax/mailplate.js",
+  "devDependencies": {
+    "mocha": "^2.4.4"
+  }
 }
