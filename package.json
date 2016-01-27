@@ -1,0 +1,19 @@
+{
+  "name": "mailplate.js",
+  "version": "1.0.0",
+  "description": "Node.JS Templating for HTML mailing",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chewax/mailplate.js.git"
+  },
+  "author": "Daniel Waksman <dwaksman@gmail.com> (https://github.com/chewax)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chewax/mailplate.js/issues"
+  },
+  "homepage": "https://github.com/chewax/mailplate.js"
+}
