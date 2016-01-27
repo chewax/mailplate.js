@@ -20,7 +20,8 @@ function renderAsync (templatePath, config, premail){
             var formattedHTML = data.toString();
 
             for (var key in config) {
-                formattedHTML = formattedHTML.replace('{{' + key + '}}', config[key]);
+                var re = new RegExp(key, 'g');
+                formattedHTML = formattedHTML.replace(re, config[key]);
             }
 
             if (premail) {
