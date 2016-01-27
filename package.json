@@ -18,5 +18,8 @@
   "homepage": "https://github.com/chewax/mailplate.js",
   "devDependencies": {
     "mocha": "^2.4.4"
+  },
+  "dependencies": {
+    "premailer-api": "^1.0.3"
   }
 }

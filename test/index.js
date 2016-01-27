@@ -9,7 +9,7 @@ describe('MailPlate', function(){
                 mail_body: "THE BODY"
             };
 
-            mailplate.renderAsync('/test/testTemplate.html', data)
+            mailplate.renderAsync('/test/testTemplate.html', data, true)
                 .then(function(formattedHTML){
                     var mail_title = formattedHTML.indexOf('{{mail_title}}');
                     var mail_body = formattedHTML.indexOf('{{mail_body}}');
@@ -31,7 +31,6 @@ describe('MailPlate', function(){
             };
 
             var formattedHTML = mailplate.render('/test/testTemplate.html', data);
-            
             var mail_title = formattedHTML.indexOf('{{mail_title}}');
             var mail_body = formattedHTML.indexOf('{{mail_body}}');
             assert.equal(mail_title, -1);

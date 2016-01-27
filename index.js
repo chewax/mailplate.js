@@ -1,6 +1,15 @@
 var fs = require('fs');
+var premailer = require('premailer-api');
 
-module.exports.renderAsync = function(templatePath, config){
+
+
+module.exports.renderAsync = renderAsync;
+module.exports.render = render;
+
+
+function renderAsync (templatePath, config, premail){
+
+    if (typeof premail == "undefined") premail = false;
 
     return new Promise( function(resolve, reject){
         var appRoot = process.cwd();
@@ -14,14 +23,28 @@ module.exports.renderAsync = function(templatePath, config){
                 formattedHTML = formattedHTML.replace('{{' + key + '}}', config[key]);
             }
 
-            resolve(formattedHTML);
+            if (premail) {
+                premailer.prepare({
+                    html: formattedHTML,
+                    preserve_styles:false,
+                    remove_classes:true,
+                    remove_comments:true
+                }, function(err, email) {
+                    if (err) reject(err);
+                    else resolve(email.html);
+                });
+            }
+
+            else {
+                resolve(formattedHTML);
+            }
+
         });
     });
-
 }
 
 
-module.exports.render = function(templatePath, config){
+function render (templatePath, config){
     var appRoot = process.cwd();
     var formattedHTML = fs.readFileSync(appRoot + templatePath).toString();
 
