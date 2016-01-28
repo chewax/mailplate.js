@@ -20,23 +20,41 @@ You should not use "-" to divide variables instead use "_".
 
 Refer the templates path from the root absolute, such as: "/templates/welcomeMail.html".
 Upon rendering the template, the function receives an object stating the values for those variables:
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{mail_title}}</title>
+    <style type="text/css">
+        .test {
+            color:red;
+        }
+    </style>
+</head>
+<body>
+    <!--this is a comment -->
+    <div class="test">{{mail_body}}</div>
+</body>
+</html>
+```
 
 ```javascript
 {
-    varName: "New var value"
+    mail_title: "The Title",
+    mail_body: "The Body"
 }
 ```
 
   ```javascript
   var mailplate = require('mailplate.js');
 
-
   var pathToTemplate = './template.html';
 
   var data = {
-    var1: newValue1,
-    var2: newValue2
-  }
+    mail_title: "The Title",
+    mail_body: "The Body"
+}
 
   var renderedTemplate = mailplate.render(pathToTemplate, data);
   console.log(renderedTemplate);
