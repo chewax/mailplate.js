@@ -53,7 +53,6 @@ The premail option switches all styling to inline. This is to avoid some display
 ```javascript
   var mailplate = require('mailplate.js');
 
-
   var pathToTemplate = './template.html';
 
   var data = {
