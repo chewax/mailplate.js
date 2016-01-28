@@ -10,16 +10,29 @@ Mailplate replaces variables in an html document as specified.
 
 ## Usage
 
-Variables in the html are written in the angularJS fashion: {{varName}}.
 
-You should not use "-" to divide variables instead use "_".
+  ```javascript
+  var mailplate = require('mailplate.js');
 
-{{var-name}} incorrect
+  var pathToTemplate = './template.html';
 
-{{var_name}} correct
+  var data = {
+    mail_title: "The Title",
+    mail_body: "The Body"
+}
 
-Refer the templates path from the root absolute, such as: "/templates/welcomeMail.html".
-Upon rendering the template, the function receives an object stating the values for those variables:
+  var renderedTemplate = mailplate.render(pathToTemplate, data);
+  console.log(renderedTemplate);
+
+  ```
+1. Variables in the html are written in the angularJS fashion: {{varName}}.
+2. Refer the templates path from the root absolute, such as: "/templates/welcomeMail.html".
+3. You should not use "-" to divide variables instead use "_".
+
+* {{var-name}} incorrect
+* {{var_name}} correct
+
+#### Input
 ```
 <!DOCTYPE html>
 <html lang="en">
@@ -45,21 +58,20 @@ Upon rendering the template, the function receives an object stating the values 
     mail_body: "The Body"
 }
 ```
-
-  ```javascript
-  var mailplate = require('mailplate.js');
-
-  var pathToTemplate = './template.html';
-
-  var data = {
-    mail_title: "The Title",
-    mail_body: "The Body"
-}
-
-  var renderedTemplate = mailplate.render(pathToTemplate, data);
-  console.log(renderedTemplate);
-
-  ```
+  
+#### Output
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{mail_title}}</title>
+</head>
+<body>
+    <div style="color:red">{{mail_body}}</div>
+</body>
+</html>
+```
 
 ## Options
 
