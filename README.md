@@ -1,9 +1,3 @@
-
-
-You should not use "-" to divide words instead use "_"
-
-Refer the templates from the root, such as: "/templates/welcomeMail.html"
-
 Mailplate.js
 =========
 A small library providing Templating For HTML Mailing
@@ -16,7 +10,13 @@ Mailplate replaces variables in an html document as specified.
 ## Usage
 
 Variables in the html are written in the angularJS fashion: {{varName}}
-Upon rendering the template, the function recieves an object stating the values for those variables:
+You should not use "-" to divide varialbes instead use "_"
+
+{{var-name}} incorrect
+{{var_name}} correct
+
+Refer the templates path from the root absolute, such as: "/templates/welcomeMail.html"
+Upon rendering the template, the function receives an object stating the values for those variables:
 
 {
     varName: "New var value"
