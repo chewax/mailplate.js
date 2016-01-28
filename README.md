@@ -65,10 +65,10 @@ Mailplate replaces variables in an html document as specified.
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{mail_title}}</title>
+    <title>The Title</title>
 </head>
 <body>
-    <div style="color:red">{{mail_body}}</div>
+    <div style="color:red">The Body</div>
 </body>
 </html>
 ```
