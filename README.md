@@ -1,6 +1,7 @@
 Mailplate.js
 =========
-A small library providing Templating For HTML Mailing
+A small library providing Templating For HTML Mailing.
+
 Mailplate replaces variables in an html document as specified.
 
 ## Installation
@@ -10,9 +11,11 @@ Mailplate replaces variables in an html document as specified.
 ## Usage
 
 Variables in the html are written in the angularJS fashion: {{varName}}.
+
 You should not use "-" to divide variables instead use "_".
 
 {{var-name}} incorrect
+
 {{var_name}} correct
 
 Refer the templates path from the root absolute, such as: "/templates/welcomeMail.html".
