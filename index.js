@@ -1,58 +1,62 @@
 var fs = require('fs');
-var premailer = require('premailer-api');
-
-
+var Styliner = require('styliner');
 
 module.exports.renderAsync = renderAsync;
 module.exports.render = render;
 
 
-function renderAsync (templatePath, config, premail){
+function extend(obj, src) {
+    var key,
+        own = {}.hasOwnProperty;
 
-    if (typeof premail == "undefined") premail = false;
+    for (key in src) {
+        if (own.call(src, key)) {
+            obj[key] = src[key];
+        }
+    }
+    return obj;
+}
+
+function removeComments(htmlSource){
+    var re = new RegExp('<!--.+?-->', 'g');
+    htmlSource = htmlSource.replace(re,'');
+    return htmlSource;
+}
+
+function renderAsync (templatePath, templateData, options){
 
     return new Promise( function(resolve, reject){
-        var appRoot = process.cwd();
 
-        fs.readFile(appRoot + templatePath, function (err, data) {
+        var opt = extend({
+            noComm: true, //No Comments
+            appRoot: process.cwd(),
+            compact: true,
+            noCSS: true
+        }, options);
+
+        var styliner = new Styliner(opt.appRoot, opt);
+
+        fs.readFile(opt.appRoot + templatePath, 'utf8', function (err, data) {
             if (err) reject(err);
 
             var formattedHTML = data.toString();
 
-            for (var key in config) {
+            for (var key in templateData) {
                 var re = new RegExp('{{' + key + '}}', 'g');
-                formattedHTML = formattedHTML.replace(re, config[key]);
-            }
+                formattedHTML = formattedHTML.replace(re, templateData[key]);
+            };
 
-            if (premail) {
-                premailer.prepare({
-                    html: formattedHTML,
-                    preserve_styles:false,
-                    remove_classes:true,
-                    remove_comments:true
-                }, function(err, email) {
-                    if (err) reject(err);
-                    else resolve(email.html);
-                });
-            }
-
-            else {
-                resolve(formattedHTML);
-            }
-
+            styliner.processHTML(formattedHTML)
+                .then(function(resHTML){
+                    if (opt.noComm) resHTML = removeComments(resHTML);
+                    resolve(resHTML);
+                })
+                .catch(function(err){
+                    reject(err);
+                })
         });
     });
 }
 
 
-function render (templatePath, config){
-    var appRoot = process.cwd();
-    var formattedHTML = fs.readFileSync(appRoot + templatePath).toString();
-
-    for (var key in config) {
-        formattedHTML = formattedHTML.replace('{{' + key + '}}', config[key]);
-    }
-
-    return formattedHTML;
-}
 
