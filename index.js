@@ -2,8 +2,6 @@ var fs = require('fs');
 var Styliner = require('styliner');
 
 module.exports.renderAsync = renderAsync;
-module.exports.render = render;
-
 
 function extend(obj, src) {
     var key,
